@@ -2,12 +2,13 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Home from '../pages/Home/Home/Home';
 import TopBar from '../pages/Home/TopBar/TopBar';
+import Navbar from '../components/shared/Navbar/Navbar';
 
 const MainLayout = () => {
     return (
         <div>
             <TopBar />
-            <Home />
+            <Navbar />
             <div>
                 <Outlet />
             </div>

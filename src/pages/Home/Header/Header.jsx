@@ -10,14 +10,14 @@ const Header = () => {
     <header className="banner">
       <Container>
         <div className="flex flex-col h-full pt-44 pl-10">
-          <h4 className="text-white font-bold text-xl pb-5 tracking-wide">
+          <h4 className="text-white font-bold text-lg md:text-xl pb-5 tracking-wide">
             We Will Teach You How To Learn
           </h4>
-          <p className="text-white tracking-wide text-6xl font-bold leading-tight pb-5">
-            BEST SCHOOL & ANYTHING TO <br />{" "}
+          <p className="text-white tracking-wide text-2xl md:text-3xl lg:text-6xl font-bold leading-tight pb-5">
+            BEST SCHOOL & ANYTHING TO <br />
             <span className="text-amber-500">LEARN</span> SMART WAY
           </p>
-          <p className="border-l-2 border-amber-600 pl-4 text-white text-lg font-medium tracking-wide mb-12">
+          <p className="border-l-2 border-amber-600 pl-4 text-white text-base md:text-lg font-medium tracking-wide mb-12">
             A Theme for Kids , Learning & Course etc.
           </p>
           <div className="flex md:flex-row gap-4">

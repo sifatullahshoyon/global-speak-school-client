@@ -6,6 +6,7 @@ const PrimaryBtn = ({ label, onClick, disabled, border, bg, icon: Icon }) => {
       onClick={onClick}
       disabled={disabled}
       className={`
+            group
             relative
             w-[150px]
             rounded
@@ -24,7 +25,7 @@ const PrimaryBtn = ({ label, onClick, disabled, border, bg, icon: Icon }) => {
     >
       {label}
       {Icon && (
-        <Icon className="text-red-600 hidden  hover:visible hover:absolute hover:right-1 hover:top-4" />
+        <Icon className="text-white absolute right-1 top-4 group-hover:visible invisible delay-150 transition" />
       )}
     </button>
   );

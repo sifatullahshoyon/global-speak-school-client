@@ -7,7 +7,7 @@ import { FaChevronRight } from "react-icons/fa";
 
 const Header = () => {
   return (
-    <div className="banner">
+    <header className="banner">
       <Container>
         <div className="flex flex-col h-full pt-44 pl-10">
           <h4 className="text-white font-bold text-xl pb-5 tracking-wide">
@@ -30,7 +30,7 @@ const Header = () => {
           </div>
         </div>
       </Container>
-    </div>
+    </header>
   );
 };
 

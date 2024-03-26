@@ -5,13 +5,16 @@ const SecondaryBtn = ({ label, onClick, disabled, bg, icon: Icon }) => {
     <button
       onClick={onClick}
       disabled={disabled}
-      width="150"
       className={`
-            relative
+      group
+      relative
+      w-[160px]
             rounded
             bg-white
             text-slate-500
-            p-2
+            py-2
+            pr-2
+            pl-0
             tracking-wide
             text-lg
             font-medium
@@ -24,7 +27,7 @@ const SecondaryBtn = ({ label, onClick, disabled, bg, icon: Icon }) => {
     >
       {label}
       {Icon && (
-        <Icon className="text-red-600   hover:visible hover:absolute hover:right-1 hover:top-4" />
+        <Icon className="text-white absolute right-1 top-4 group-hover:visible invisible delay-150 transition" />
       )}
     </button>
   );

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
 
@@ -20,10 +21,35 @@ const Navbar = () => {
       document.removeEventListener("mousedown", closeDropDown);
     };
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      // Set a threshold value, for example, 100 pixels
+      const threshold = 500;
+      if (scrollPosition > threshold) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <div className="fixed w-full bg-transparent z-10">
+    <div
+      className={`fixed w-full ${
+        scrolled ? "top-0" : ""
+      } z-50 transition duration-500 ${
+        scrolled ? "bg-gray-800" : "bg-transparent"
+      }`}
+    >
       <Container>
-        <nav className="flex items-center justify-between bg-transparent px-4 py-2 text-white mb-24">
+        <nav className="flex items-center justify-between bg-transparent px-4 py-2 text-white pb-8">
           <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all duration-200 hover:scale-110">
             <h2 className="text-amber-500">Global Speak School</h2>
           </div>

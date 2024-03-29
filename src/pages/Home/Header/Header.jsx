@@ -1,8 +1,8 @@
 import React from "react";
 import "./Header.css";
 import Container from "../../../components/shared/Container";
-import PrimaryBtn from "../../../components/Button/PrimaryBtn";
-import SecondaryBtn from "../../../components/Button/SecondaryBtn";
+import PrimaryBtn from "../../../components/shared/Button/PrimaryBtn";
+import SecondaryBtn from "../../../components/shared/Button/SecondaryBtn";
 import { FaChevronRight } from "react-icons/fa";
 
 const Header = () => {

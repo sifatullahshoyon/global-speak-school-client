@@ -2,7 +2,8 @@ import React from "react";
 import Container from "../components/shared/Container";
 import errorImg from "../assets/images/404/404.jpg";
 import { useNavigate, useRouteError } from "react-router-dom";
-import PrimaryBtn from "../components/Button/PrimaryBtn";
+import PrimaryBtn from "../components/shared/Button/PrimaryBtn";
+
 
 const ErrorPage = () => {
   const { error } = useRouteError();

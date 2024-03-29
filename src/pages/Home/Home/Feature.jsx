@@ -25,12 +25,12 @@ const Feature = () => {
     };
 
     return (
-        <section>
+        <section className='py-20 bg-slate-50'>
             <Container>
                 <div>
-                    <h1 className='text-2xl font-bold text-center mb-4 tracking-wide text-gray-600'>Welcome to <span className='text-amber-600'>Global Speak School</span></h1>
-                    <p className='text-center text-lg text-gray-600 tracking-wide font-semibold'>Explore our top feature</p>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'>
+                    <h1 className='text-xl md:text-3xl font-bold text-center mb-4 tracking-wide text-gray-600'>Welcome to <span className='text-amber-600'>Global Speak School</span></h1>
+                    <p className='text-center text-lg text-gray-600 tracking-wide font-semibold pb-10'>Explore our top feature</p>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 p-5 mx-auto'>
                         {
                             features?.map(feature => <SimpleCard key={feature._id} feature={feature} />)
                         }

@@ -2,7 +2,7 @@ import React from "react";
 import Container from "../Container";
 import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useColorMode, Button } from "@chakra-ui/react";
+import { useColorMode, Button} from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {

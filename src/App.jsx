@@ -1,10 +1,11 @@
-import React from 'react';
+import { ColorModeScript } from "@chakra-ui/react";
+import React from "react";
 
 const App = () => {
   return (
-    <div>
-      <h1 className='text-red-600 underline font-roboto'>GlobalSpeak School</h1>
-    </div>
+    <>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    </>
   );
 };
 

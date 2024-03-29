@@ -23,7 +23,7 @@ const SimpleCard = ({feature , }) => {
         )
     }
     <Stack mt='6' spacing='3'>
-      <Heading size='md'>Living room Sofa</Heading>
+      <Heading size='md'>{title ? title : "Data Not Found text-gray-600 bold"}</Heading>
       <Text>
         This sofa is perfect for modern tropical spaces, baroque inspired
         spaces, earthy toned spaces and for people who love a chic design with a

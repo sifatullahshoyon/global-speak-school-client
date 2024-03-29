@@ -2,10 +2,13 @@ import React from "react";
 import Container from "../Container";
 import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useColorMode, Button } from "@chakra-ui/react";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [dropDownState, setDropDownState] = useState(false);
+  const { colorMode, toggleColorMode } = useColorMode();
   const dropDownMenuRef = useRef();
 
   useEffect(() => {
@@ -76,6 +79,15 @@ const Navbar = () => {
               Contact
               <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
             </li>
+            <NavLink>
+              <Button
+                onClick={toggleColorMode}
+                size="sm"
+                className="group flex  cursor-pointer flex-col"
+              >
+                {colorMode === "light" ? <FaMoon /> : <FaSun />}
+              </Button>
+            </NavLink>
           </ul>
           <div
             ref={dropDownMenuRef}
@@ -119,6 +131,15 @@ const Navbar = () => {
                 <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600">
                   Contact
                 </li>
+                <NavLink>
+                  <Button
+                    onClick={toggleColorMode}
+                    size="sm"
+                    className="group flex  cursor-pointer flex-col"
+                  >
+                    {colorMode === "light" ? <FaMoon /> : <FaSun />}
+                  </Button>
+                </NavLink>
               </ul>
             )}
           </div>

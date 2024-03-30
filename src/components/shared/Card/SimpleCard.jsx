@@ -14,16 +14,12 @@ const SimpleCard = ({ feature }) => {
   const { details, icon: Icon, title } = feature;
 
   return (
-    // <div className='w-[308px] p-5 border hover:shadow-md'>
-    //     <h1>Title : {title}</h1>
-    // </div>
-    // <></>
     <Card
       maxW="xl"
       className="border-1 hover:shadow-md bg-red-500 rounded-none"
-    //   shadow='md'
       rounded='none'
-      _hover='box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;'
+      _hover={{ boxShadow: "xl" }}
+      transition="box-shadow 0.3s ease"
     >
       <CardBody>
         {Icon && (

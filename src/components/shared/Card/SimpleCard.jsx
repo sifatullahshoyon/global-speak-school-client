@@ -7,17 +7,19 @@ import {
   Image,
   Stack,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import CardBtn from "../Button/CardBtn";
 
 const SimpleCard = ({ feature }) => {
   const { details, icon: Icon, title } = feature;
+  const textColor = useColorModeValue("text-gray-600", "dark.text");
 
   return (
     <Card
       maxW="xl"
-      className="border-1 hover:shadow-md bg-red-500 rounded-none"
-      rounded='none'
+      className="border-1 hover:shadow-md"
+      rounded="none"
       _hover={{ boxShadow: "xl" }}
       transition="box-shadow 0.3s ease"
     >
@@ -33,10 +35,14 @@ const SimpleCard = ({ feature }) => {
           />
         )}
         <Stack mt="6" spacing="3">
-          <Heading size="md" className="text-gray-700 font-bold font-roboto">
+          <Heading
+            color={textColor}
+            size="md"
+            className="text-gray-700 font-bold font-roboto"
+          >
             {title && title ? title : "Data Not Found"}
           </Heading>
-          <Text className="text-gray-500 font-semibold">
+          <Text color={textColor} className="text-gray-500 font-semibold">
             {details && details ? details : "Data Not Found"}
           </Text>
           <Text color="blue.600" fontSize="2xl">

@@ -55,7 +55,7 @@ const Navbar = () => {
             <h2 className="text-amber-500">Global Speak School</h2>
           </div>
           <ul className="hidden items-center justify-between gap-10 md:flex">
-            <NavLink>
+            <NavLink to='/'>
               <li className="group flex  cursor-pointer flex-col">
                 Home
                 <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>

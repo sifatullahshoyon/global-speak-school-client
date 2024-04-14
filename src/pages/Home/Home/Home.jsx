@@ -5,11 +5,11 @@ import Title from "../../../components/Title";
 
 const Home = () => {
   return (
-    <div>
-      <Title title="home" />
+    <>
+      <Title title="Home" />
       <Header />
       <Feature />
-    </div>
+    </>
   );
 };
 

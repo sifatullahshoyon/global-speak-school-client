@@ -4,19 +4,29 @@ import Title from "../../components/Title";
 import { AuthContext } from "../../providers/AuthProviders";
 import SendMessage from "../../components/shared/SendMessage/SendMessage";
 
+const imageHostingToken = import.meta.env.VITE_Image_Upload_Token;
+
 const Registration = () => {
   const [message, setMessage] = useState({ text: "", type: null });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const { createUser, updatedUserProfile } = useContext(AuthContext);
+  const imgHostingUrl = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostingToken}`;
   const navigate = useNavigate();
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
   const handleSignUp = (event) => {
     event.preventDefault();
-    event.target.reset();
+    // event.target.reset();
     const form = event.target;
     const name = form.userName.value;
     const email = form.userEmail.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
-    // console.log(name , email , password , confirmPassword);
+    console.log(name, email, password, confirmPassword);
 
     // Password Validation:-
     if (/^\s*$/.test(password)) {
@@ -45,6 +55,28 @@ const Registration = () => {
       return;
     }
 
+    // File Upload
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+
+      fetch(imgHostingUrl, {
+        method: "POST",
+        // headers: {
+        //   'Authorization': `Bearer ${imageHostingToken}`
+        // },
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setImageUrl(data.data.url);
+        })
+        .catch((error) => {
+          console.error("Error uploading image: ", error);
+        });
+    }
+
     createUser(email, password)
       .then((result) => {
         const loggedUser = result?.user;
@@ -52,7 +84,7 @@ const Registration = () => {
         updatedUserProfile(name)
           .then(() => {
             setMessage({ text: "Sign up successful!", type: "success" });
-            navigate("/");
+            // navigate("/");
           })
           .catch((error) => {
             setMessage({ text: error.message, type: "error" });
@@ -103,6 +135,7 @@ const Registration = () => {
                   Upload Your Photo
                 </label>
                 <input
+                  onChange={handleFileChange}
                   type="file"
                   name="userPhoto"
                   id="userPhoto"

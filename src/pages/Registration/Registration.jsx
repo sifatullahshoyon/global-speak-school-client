@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Title from "../../components/Title";
+import { AuthContext } from "../../providers/AuthProviders";
+import SendMessage from "../../components/shared/SendMessage/SendMessage";
 
 const Registration = () => {
+  const [message, setMessage] = useState({ text: "", type: null });
+  const { createUser, updatedUserProfile } = useContext(AuthContext);
+
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.userName.value;
+    const email = form.userEmail.value;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+    // console.log(name , email , password , confirmPassword);
+    createUser(email, password)
+      .then((result) => {
+        const loggedUser = result?.user;
+
+        updatedUserProfile(name)
+          .then(() => {
+            setMessage({ text: "Sign up successful!", type: "success" });
+          })
+          .catch((error) => {
+            setMessage({ text: error.message, type: "error" });
+          });
+      })
+      .catch((error) => {
+        setMessage({ text: error.message, type: "error" });
+      });
+  };
+
   return (
     <>
       <Title title="Registration" />
@@ -13,7 +43,7 @@ const Registration = () => {
               Please Registration
             </h1>
             {/* Input fields and the form started */}
-            <form action="" className="space-y-6">
+            <form onSubmit={handleSignUp} className="space-y-6">
               <div className="space-y-2 text-sm">
                 <label htmlFor="userName" className="block ">
                   Your Name
@@ -63,7 +93,7 @@ const Registration = () => {
               </div>
               <div className="space-y-2 text-sm">
                 <label htmlFor="confirmPassword" className="block ">
-                  Password
+                  Confirm Password
                 </label>
                 <input
                   type="password"
@@ -84,6 +114,8 @@ const Registration = () => {
                 <span className="bg-indigo-800 absolute inset-0 translate-x-full group-hover:translate-x-0 group-hover:delay-300 delay-100 duration-1000"></span>
                 <span className="bg-indigo-800 absolute inset-0 -translate-x-full group-hover:translate-x-0 group-hover:delay-300 delay-100 duration-1000"></span>
               </button>
+              {/* Error or Success message */}
+              <SendMessage message={message.text} type={message.type} />
             </form>
             <div className="flex items-center pt-4 space-x-2">
               <div className="flex-1 h-px bg-gray-300"></div>
@@ -97,6 +129,7 @@ const Registration = () => {
               <button
                 aria-label="Log in with Google"
                 className="p-3 rounded-full hover:bg-gray-200"
+                // onClick={handleGoogleSignIn}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "../Container";
 import { useState, useRef, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import DarkModeToggle from "../../Theme/DarkModeToggle";
+import { AuthContext } from "../../../providers/AuthProviders";
+import { Bounce, toast } from "react-toastify";
+import { FaUser } from "react-icons/fa";
+
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
+  const {logOut , user} = useContext(AuthContext);
+
+ const handleSignOut = () => {
+  logOut()
+  .then(() => {
+    // Sign Out Successfully.
+  })
+  .catch(error => {
+    toast.error( error.message , {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
+  })
+ };
 
   useEffect(() => {
     const closeDropDown = (e) => {
@@ -77,6 +102,20 @@ const Navbar = () => {
               Contact
               <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
             </li>
+            
+            <li className="group flex  cursor-pointer flex-col">
+              {/* Contact */}
+              
+              {user ? (
+                <>
+                {/* <Link to='/login'><FaUser /></Link> */}
+                <span onClick={handleSignOut}>log out</span>
+                </>
+              ) : (<Link to='/login'><FaUser /></Link>)}
+              <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+            </li>
+          
+            
             <NavLink>
               <DarkModeToggle
                 size="sm"

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Title from "../../components/Title";
 import { AuthContext } from "../../providers/AuthProviders";
 import SendMessage from "../../components/shared/SendMessage/SendMessage";
@@ -7,9 +7,10 @@ import SendMessage from "../../components/shared/SendMessage/SendMessage";
 const Registration = () => {
   const [message, setMessage] = useState({ text: "", type: null });
   const { createUser, updatedUserProfile } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const handleSignUp = (event) => {
     event.preventDefault();
+    event.target.reset();
     const form = event.target;
     const name = form.userName.value;
     const email = form.userEmail.value;
@@ -18,9 +19,9 @@ const Registration = () => {
     // console.log(name , email , password , confirmPassword);
 
     // Password Validation:-
-    if (password.trim() === "" || confirmPassword.trim() === "") {
+    if (/^\s*$/.test(password)) {
       setMessage({
-        text: "Password fields cannot be empty..",
+        text: "Password cannot contain white spaces.",
         type: "error",
       });
       return;
@@ -30,7 +31,7 @@ const Registration = () => {
         type: "error",
       });
       return;
-    } else if (password.length < 6) {
+    } else if (password.trim().length < 6) {
       setMessage({
         text: "Password should be at least 6 characters long..",
         type: "error",
@@ -44,14 +45,6 @@ const Registration = () => {
       return;
     }
 
-    //   if (password.trim() === '' || confirmPassword.trim() === '') {
-    //     setMessage({
-    //       text: "Password fields cannot be empty..",
-    //       type: "error",
-    //     });
-    //     return;
-    // }
-
     createUser(email, password)
       .then((result) => {
         const loggedUser = result?.user;
@@ -59,6 +52,7 @@ const Registration = () => {
         updatedUserProfile(name)
           .then(() => {
             setMessage({ text: "Sign up successful!", type: "success" });
+            navigate("/");
           })
           .catch((error) => {
             setMessage({ text: error.message, type: "error" });

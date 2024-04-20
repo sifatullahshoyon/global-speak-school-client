@@ -16,6 +16,42 @@ const Registration = () => {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
     // console.log(name , email , password , confirmPassword);
+
+    // Password Validation:-
+    if (password.trim() === "" || confirmPassword.trim() === "") {
+      setMessage({
+        text: "Password fields cannot be empty..",
+        type: "error",
+      });
+      return;
+    } else if (password !== confirmPassword) {
+      setMessage({
+        text: "Password and confirm password do not match.",
+        type: "error",
+      });
+      return;
+    } else if (password.length < 6) {
+      setMessage({
+        text: "Password should be at least 6 characters long..",
+        type: "error",
+      });
+      return;
+    } else if (!/(?=.*?[0-9])/.test(password)) {
+      setMessage({
+        text: "Password should contain at least one digit.",
+        type: "error",
+      });
+      return;
+    }
+
+    //   if (password.trim() === '' || confirmPassword.trim() === '') {
+    //     setMessage({
+    //       text: "Password fields cannot be empty..",
+    //       type: "error",
+    //     });
+    //     return;
+    // }
+
     createUser(email, password)
       .then((result) => {
         const loggedUser = result?.user;

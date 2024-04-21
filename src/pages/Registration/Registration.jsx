@@ -127,9 +127,10 @@ const Registration = () => {
                   name="userEmail"
                   id="userEmail"
                   placeholder="Enter Your Email"
-                  className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500 "
+                  className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
+                  required
                 />
-              </div>
+              </div> 
               <div className="space-y-2 text-sm">
                 <label htmlFor="userPhoto" className="block ">
                   Upload Your Photo
@@ -152,6 +153,7 @@ const Registration = () => {
                   id="password"
                   placeholder="Password"
                   className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
+                  required
                 />
               </div>
               <div className="space-y-2 text-sm">
@@ -164,6 +166,7 @@ const Registration = () => {
                   id="confirmPassword"
                   placeholder="Confirm Password"
                   className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
+                  required
                 />
               </div>
               {/* Sign in Button */}

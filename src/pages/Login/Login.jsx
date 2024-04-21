@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Title from "../../components/Title";
+import { AuthContext } from "../../providers/AuthProviders";
+import SendMessage from "../../components/shared/SendMessage/SendMessage";
 
 const Login = () => {
+  const [message, setMessage] = useState({ text: "", type: null });
+  const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.form?.pathName || "/";
+
+  const handleSignIn = (event) => {
+    event.preventDefault();
+    event.target.reset();
+    const form = event.target;
+    const email = form.userEmail.value;
+    const password = form.password.value;
+    // console.log(email , password);
+    signIn(email, password)
+      .then((result) => {
+        const loggedUser = result?.user;
+        setMessage({ text: "SignIn successful!", type: "success" });
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setMessage({ text: error.message, type: "error" });
+      });
+  };
   return (
     <>
       <Title title="Login" />
@@ -14,17 +40,18 @@ const Login = () => {
               Login
             </h1>
             {/* Input fields and the form started */}
-            <form action="" className="space-y-6">
+            <form onSubmit={handleSignIn} className="space-y-6">
               <div className="space-y-2 text-sm">
-                <label htmlFor="username" className="block ">
+                <label htmlFor="userEmail" className="block ">
                   Your Email
                 </label>
                 <input
                   type="text"
-                  name="username"
-                  id="username"
+                  name="userEmail"
+                  id="userEmail"
                   placeholder="Email"
-                  className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500 "
+                  className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
+                  required
                 />
               </div>
               <div className="space-y-2 text-sm">
@@ -37,6 +64,7 @@ const Login = () => {
                   id="password"
                   placeholder="Password"
                   className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
+                  required
                 />
                 <div className="flex justify-end text-xs ">
                   <a href="#" className="hover:underline">
@@ -55,6 +83,8 @@ const Login = () => {
                 <span className="bg-indigo-800 absolute inset-0 translate-x-full group-hover:translate-x-0 group-hover:delay-300 delay-100 duration-1000"></span>
                 <span className="bg-indigo-800 absolute inset-0 -translate-x-full group-hover:translate-x-0 group-hover:delay-300 delay-100 duration-1000"></span>
               </button>
+              {/* Error or Success message */}
+              <SendMessage message={message.text} type={message.type} />
             </form>
             <div className="flex items-center pt-4 space-x-2">
               <div className="flex-1 h-px bg-gray-300"></div>

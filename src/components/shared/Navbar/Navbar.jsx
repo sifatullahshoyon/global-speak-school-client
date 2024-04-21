@@ -7,32 +7,31 @@ import { AuthContext } from "../../../providers/AuthProviders";
 import { Bounce, toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 
-
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
-  const {logOut , user} = useContext(AuthContext);
+  const { logOut, user } = useContext(AuthContext);
 
- const handleSignOut = () => {
-  logOut()
-  .then(() => {
-    // Sign Out Successfully.
-  })
-  .catch(error => {
-    toast.error( error.message , {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        // Sign Out Successfully.
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       });
-  })
- };
+  };
 
   useEffect(() => {
     const closeDropDown = (e) => {
@@ -80,7 +79,7 @@ const Navbar = () => {
             <h2 className="text-amber-500">Global Speak School</h2>
           </div>
           <ul className="hidden items-center justify-between gap-10 md:flex">
-            <NavLink to='/'>
+            <NavLink to="/">
               <li className="group flex  cursor-pointer flex-col">
                 Home
                 <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
@@ -102,20 +101,18 @@ const Navbar = () => {
               Contact
               <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
             </li>
-            
             <li className="group flex  cursor-pointer flex-col">
-              {/* Contact */}
-              
               {user ? (
                 <>
-                {/* <Link to='/login'><FaUser /></Link> */}
-                <span onClick={handleSignOut}>log out</span>
+                  <span onClick={handleSignOut}>log out</span>
                 </>
-              ) : (<Link to='/login'><FaUser /></Link>)}
+              ) : (
+                <Link to="/login">
+                  <FaUser />
+                </Link>
+              )}
               <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
             </li>
-          
-            
             <NavLink>
               <DarkModeToggle
                 size="sm"
@@ -164,6 +161,18 @@ const Navbar = () => {
                 </NavLink>
                 <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600">
                   Contact
+                </li>
+                <li className="group flex  cursor-pointer flex-col">
+                  {user ? (
+                    <>
+                      <span onClick={handleSignOut}>log out</span>
+                    </>
+                  ) : (
+                    <Link to="/login">
+                      <FaUser />
+                    </Link>
+                  )}
+                  <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
                 </li>
                 <NavLink>
                   <DarkModeToggle

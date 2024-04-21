@@ -10,7 +10,7 @@ const Registration = () => {
   const [message, setMessage] = useState({ text: "", type: null });
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  const { createUser, updatedUserProfile } = useContext(AuthContext);
+  const { createUser, updatedUserProfile , singInWithGoogle} = useContext(AuthContext);
   const imgHostingUrl = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostingToken}`;
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Registration = () => {
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    // event.target.reset();
+    event.target.reset();
     const form = event.target;
     const name = form.userName.value;
     const email = form.userEmail.value;
@@ -84,7 +84,7 @@ const Registration = () => {
         updatedUserProfile(name)
           .then(() => {
             setMessage({ text: "Sign up successful!", type: "success" });
-            // navigate("/");
+            navigate("/");
           })
           .catch((error) => {
             setMessage({ text: error.message, type: "error" });
@@ -95,6 +95,17 @@ const Registration = () => {
       });
   };
 
+  const handleGoogleSignIn = () => {
+    singInWithGoogle()
+    .then((result) => {
+      const loggedUser = result?.user;
+      setMessage({ text: "Sign up successful!", type: "success" });
+      navigate("/");
+    })
+    .catch((error) => {
+      setMessage({ text: error.message, type: "error" });
+    });
+  };
   return (
     <>
       <Title title="Registration" />
@@ -195,7 +206,7 @@ const Registration = () => {
               <button
                 aria-label="Log in with Google"
                 className="p-3 rounded-full hover:bg-gray-200"
-                // onClick={handleGoogleSignIn}
+                onClick={handleGoogleSignIn}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

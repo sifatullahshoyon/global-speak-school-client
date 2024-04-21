@@ -7,7 +7,7 @@ import SendMessage from "../../components/shared/SendMessage/SendMessage";
 
 const Login = () => {
   const [message, setMessage] = useState({ text: "", type: null });
-  const { signIn } = useContext(AuthContext);
+  const { signIn , singInWithGoogle} = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -29,6 +29,18 @@ const Login = () => {
       .catch((error) => {
         setMessage({ text: error.message, type: "error" });
       });
+  };
+
+  const handleGoogleSignIn = () => {
+    singInWithGoogle()
+    .then((result) => {
+      const loggedUser = result?.user;
+      setMessage({ text: "Sign up successful!", type: "success" });
+      navigate(from, { replace: true });
+    })
+    .catch((error) => {
+      setMessage({ text: error.message, type: "error" });
+    });
   };
   return (
     <>
@@ -98,6 +110,7 @@ const Login = () => {
               <button
                 aria-label="Log in with Google"
                 className="p-3 rounded-full hover:bg-gray-200"
+                onClick={handleGoogleSignIn}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

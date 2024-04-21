@@ -5,7 +5,8 @@ import { Link, NavLink } from "react-router-dom";
 import DarkModeToggle from "../../Theme/DarkModeToggle";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { Bounce, toast } from "react-toastify";
-import { FaUser } from "react-icons/fa";
+import Avatar from "./Avatar";
+
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -102,17 +103,25 @@ const Navbar = () => {
               <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
             </li>
             <li className="group flex  cursor-pointer flex-col">
-              {user ? (
+              {user?.email ? (
                 <>
-                  <span onClick={handleSignOut}>log out</span>
+                  <span onClick={handleSignOut}>Sign Out</span>
                 </>
               ) : (
                 <Link to="/login">
-                  <FaUser />
+                  <span>Sign In</span>
                 </Link>
               )}
               <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
             </li>
+            {user?.email && (
+              <NavLink>
+                {/* <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600 ">
+                  Classes
+                </li> */}
+                <Avatar />
+              </NavLink>
+            )}
             <NavLink>
               <DarkModeToggle
                 size="sm"
@@ -163,17 +172,25 @@ const Navbar = () => {
                   Contact
                 </li>
                 <li className="group flex  cursor-pointer flex-col">
-                  {user ? (
+                  {user?.email ? (
                     <>
-                      <span onClick={handleSignOut}>log out</span>
+                      <span onClick={handleSignOut}>Sign Out</span>
                     </>
                   ) : (
                     <Link to="/login">
-                      <FaUser />
+                      <span>Sign In</span>
                     </Link>
                   )}
                   <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
                 </li>
+                {user?.email && (
+                  <NavLink>
+                    {/* <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600 ">
+                  Classes
+                </li> */}
+                   <Avatar />
+                  </NavLink>
+                )}
                 <NavLink>
                   <DarkModeToggle
                     size="sm"

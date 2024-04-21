@@ -9,8 +9,9 @@ const imageHostingToken = import.meta.env.VITE_Image_Upload_Token;
 const Registration = () => {
   const [message, setMessage] = useState({ text: "", type: null });
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");
-  const { createUser, updatedUserProfile , singInWithGoogle} = useContext(AuthContext);
+  // const [imageUrl, setImageUrl] = useState("");
+  const { createUser, updatedUserProfile, singInWithGoogle } =
+    useContext(AuthContext);
   const imgHostingUrl = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostingToken}`;
   const navigate = useNavigate();
 
@@ -70,41 +71,58 @@ const Registration = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          setImageUrl(data.data.url);
+          // setImageUrl(data.data.display_url);
+          const url = data.data.display_url;
+          createUser(email, password)
+            .then((result) => {
+              const loggedUser = result?.user;
+              console.log(loggedUser);
+              updatedUserProfile(name, url)
+                .then(() => {
+                  setMessage({ text: "Sign up successful!", type: "success" });
+                  // navigate("/");
+                })
+                .catch((error) => {
+                  setMessage({ text: error.message, type: "error" });
+                });
+            })
+            .catch((error) => {
+              setMessage({ text: error.message, type: "error" });
+            });
         })
         .catch((error) => {
           console.error("Error uploading image: ", error);
         });
     }
 
-    createUser(email, password)
-      .then((result) => {
-        const loggedUser = result?.user;
-
-        updatedUserProfile(name)
-          .then(() => {
-            setMessage({ text: "Sign up successful!", type: "success" });
-            navigate("/");
-          })
-          .catch((error) => {
-            setMessage({ text: error.message, type: "error" });
-          });
-      })
-      .catch((error) => {
-        setMessage({ text: error.message, type: "error" });
-      });
+    // createUser(email, password)
+    //   .then((result) => {
+    //     const loggedUser = result?.user;
+    //     console.log(loggedUser)
+    //     updatedUserProfile(name , url)
+    //       .then(() => {
+    //         setMessage({ text: "Sign up successful!", type: "success" });
+    //         navigate("/");
+    //       })
+    //       .catch((error) => {
+    //         setMessage({ text: error.message, type: "error" });
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     setMessage({ text: error.message, type: "error" });
+    //   });
   };
 
   const handleGoogleSignIn = () => {
     singInWithGoogle()
-    .then((result) => {
-      const loggedUser = result?.user;
-      setMessage({ text: "Sign up successful!", type: "success" });
-      navigate("/");
-    })
-    .catch((error) => {
-      setMessage({ text: error.message, type: "error" });
-    });
+      .then((result) => {
+        const loggedUser = result?.user;
+        setMessage({ text: "Sign up successful!", type: "success" });
+        navigate("/");
+      })
+      .catch((error) => {
+        setMessage({ text: error.message, type: "error" });
+      });
   };
   return (
     <>
@@ -141,7 +159,7 @@ const Registration = () => {
                   className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
                   required
                 />
-              </div> 
+              </div>
               <div className="space-y-2 text-sm">
                 <label htmlFor="userPhoto" className="block ">
                   Upload Your Photo

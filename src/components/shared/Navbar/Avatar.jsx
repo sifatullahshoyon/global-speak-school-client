@@ -7,10 +7,11 @@ const Avatar = () => {
   return (
     <img
       className="rounded-full"
-      src={user && user.photoURL ? user.photoURL : <FaUser />}
+      src={user && user?.photoURL ? user?.photoUR : <FaUser />}
       alt="profile"
       height="40"
       width="30"
+      title={user?.displayName}
     />
   );
 };

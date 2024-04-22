@@ -30,19 +30,22 @@ const Feature = () => {
     <section className="py-20">
       <Container>
         <div>
-          <h1
-            className={`text-xl md:text-3xl lg:text-4xl font-bold text-center pb-8 tracking-wide ${textColor}`}
-          >
-            Welcome to{" "}
-            <span className="text-amber-600">Global Speak School</span>
-          </h1>
-          <p
-            className={`text-center text-lg tracking-wide font-semibold pb-10 ${textColorTwo}`}
-          >
-            Dive into a world of language mastery with our tailored <br />{" "}
-            features, crafted to empower students in their journey at Global
-            Speak School
-          </p>
+          <div data-aos="fade-down">
+            <h1
+              className={`text-xl md:text-3xl lg:text-4xl font-bold text-center pb-8 tracking-wide ${textColor}`}
+            >
+              Welcome to{" "}
+              <span className="text-amber-600">Global Speak School</span>
+            </h1>
+            <p
+              className={`text-center text-lg tracking-wide font-semibold pb-10 ${textColorTwo}`}
+            >
+              Dive into a world of language mastery with our tailored <br />{" "}
+              features, crafted to empower students in their journey at Global
+              Speak School
+            </p>
+          </div>
+
           <div
             data-aos="fade-up"
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 p-5 mx-auto"

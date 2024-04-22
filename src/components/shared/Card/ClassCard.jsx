@@ -9,12 +9,14 @@ import {
   Divider,
   Heading,
   Image,
+  ListItem,
   Stack,
   Text,
+  UnorderedList,
 } from "@chakra-ui/react";
 
 const ClassCard = ({ classItem }) => {
-  const { title, classImage, students, description } = classItem;
+  const { title, classImage, students, description, features } = classItem;
   const initialText = description;
   const [showFullText, setShowFullText] = useState(false);
   const [displayText, setDisplayText] = useState(initialText);
@@ -23,11 +25,12 @@ const ClassCard = ({ classItem }) => {
     setDisplayText(showFullText ? initialText : initialText.slice(0, 100));
   };
   return (
-    <>
+    <div data-aos="fade-up-right">
       <Card
         maxW="sm"
         overflow="hidden"
         _hover={{ ".class-card-image": { transform: "scale(1.1)" } }}
+        marginX="auto"
       >
         <CardBody>
           <Image
@@ -42,7 +45,7 @@ const ClassCard = ({ classItem }) => {
           <Stack mt="6" spacing="3">
             <Heading size="md">{title ? title : "Data Not Found"}</Heading>
             <Box>
-              <Text>
+              <Text className="text-neutral-700">
                 {displayText}.......
                 {displayText && (
                   <span onClick={handleClick} mt={2}>
@@ -55,13 +58,21 @@ const ClassCard = ({ classItem }) => {
                 )}
               </Text>
             </Box>
-            <Text color="blue.600" fontSize="2xl">
-              $450
+            <Text>
+              <span className="font-medium">Total Students:</span>
+              <span> {students ? students : "Data Not Found"}</span>
             </Text>
+            <Box>
+              <Text className="font-medium">Features :</Text>
+              <UnorderedList>
+                {features?.map((feature, index) => (
+                  <ListItem key={index}>{feature}</ListItem>
+                ))}
+              </UnorderedList>
+            </Box>
           </Stack>
         </CardBody>
-        <Divider />
-        <CardFooter>
+        {/* <CardFooter>
           <ButtonGroup spacing="2">
             <Button variant="solid" colorScheme="blue">
               Buy now
@@ -70,9 +81,9 @@ const ClassCard = ({ classItem }) => {
               Add to cart
             </Button>
           </ButtonGroup>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
-    </>
+    </div>
   );
 };
 

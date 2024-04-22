@@ -15,7 +15,6 @@ const Feature = () => {
     setLoading(true);
     getAllFeature()
       .then((data) => {
-        console.log("feature : 13", data);
         setFeatures(data);
         setLoading(false);
       })
@@ -32,7 +31,7 @@ const Feature = () => {
       <Container>
         <div>
           <h1
-            className={`text-xl md:text-3xl lg:text-4xl font-bold text-center pb-5 tracking-wide ${textColor}`}
+            className={`text-xl md:text-3xl lg:text-4xl font-bold text-center pb-8 tracking-wide ${textColor}`}
           >
             Welcome to{" "}
             <span className="text-amber-600">Global Speak School</span>

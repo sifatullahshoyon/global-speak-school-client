@@ -54,6 +54,12 @@ const Registration = () => {
         type: "error",
       });
       return;
+    }else if (!/(?=.*?[A-Z])/.test(password)) {
+      setMessage({
+        text: "'Please Enter Min 1 uppercase letter'",
+        type: "error",
+      });
+      return;
     }
 
     // File Upload

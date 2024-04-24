@@ -1,12 +1,11 @@
-// import { ColorModeScript, theme } from "@chakra-ui/react";
 import React from "react";
+import { motion } from "framer-motion";
 
 const App = () => {
-  
   return (
-    <>
-      {/* <ColorModeScript initialColorMode={theme.config.initialColorMode} /> */}
-    </>
+    <div className="example-container">
+      <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }} />
+    </div>
   );
 };
 

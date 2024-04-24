@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import Feature from "./Feature";
 import Title from "../../../components/Title";
 import PopularClassesSection from "./PopularClassesSection";
+import PopularInstructorsSection from "./PopularInstructorsSection";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Header />
       <Feature />
       <PopularClassesSection />
+      <PopularInstructorsSection />
     </>
   );
 };

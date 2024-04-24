@@ -45,7 +45,7 @@ const ClassCard = ({ classItem }) => {
           <Stack mt="6" spacing="3">
             <Heading size="md">{title ? title : "Data Not Found"}</Heading>
             <Box>
-              <Text className="text-neutral-700">
+              <Text className={`initialColorMode ? '' : '' `}>
                 {displayText}.......
                 {displayText && (
                   <span onClick={handleClick} mt={2}>

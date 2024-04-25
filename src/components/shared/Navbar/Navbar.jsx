@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Container from "../Container";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import DarkModeToggle from "../../Theme/DarkModeToggle";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { Bounce, toast } from "react-toastify";
 import Avatar from "./Avatar";
-
+import useScrollPosition from "../../../hooks/useScrollPosition";
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
+  const scrolled = useScrollPosition();
   const { logOut, user } = useContext(AuthContext);
 
   const handleSignOut = () => {
@@ -48,24 +48,6 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      // Set a threshold value, for example, 100 pixels
-      const threshold = 500;
-      if (scrollPosition > threshold) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
   return (
     <div
       className={`fixed w-full ${
@@ -77,16 +59,18 @@ const Navbar = () => {
       <Container>
         <nav className="flex items-center justify-between bg-transparent px-4 py-2 text-white pb-8">
           <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all duration-200 hover:scale-110">
-            <h2 className="text-amber-500">Global Speak School</h2>
+            <Link to="/">
+              <h2 className="text-amber-500">Global Speak School</h2>
+            </Link>
           </div>
           <ul className="hidden items-center justify-between gap-10 md:flex">
             <NavLink to="/">
-              <li className="group flex  cursor-pointer flex-col">
+              <li className="group flex initialColorMode cursor-pointer flex-col">
                 Home
                 <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
               </li>
             </NavLink>
-            <NavLink to='/instructors'>
+            <NavLink to="/instructors">
               <li className="group flex  cursor-pointer flex-col">
                 Instructors
                 <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
@@ -116,9 +100,6 @@ const Navbar = () => {
             </li>
             {user?.email && (
               <NavLink>
-                {/* <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600 ">
-                  Classes
-                </li> */}
                 <Avatar />
               </NavLink>
             )}
@@ -158,7 +139,7 @@ const Navbar = () => {
                     Home
                   </li>
                 </NavLink>
-                <NavLink to='/instructors'>
+                <NavLink to="/instructors">
                   <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600 ">
                     Instructors
                   </li>
@@ -185,10 +166,7 @@ const Navbar = () => {
                 </li>
                 {user?.email && (
                   <NavLink>
-                    {/* <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600 ">
-                  Classes
-                </li> */}
-                   <Avatar />
+                    <Avatar />
                   </NavLink>
                 )}
                 <NavLink>

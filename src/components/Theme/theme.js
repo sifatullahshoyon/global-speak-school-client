@@ -14,6 +14,9 @@ const theme = extendTheme({
     dark: {
       text: "#f1f2f6", // Example: white text color for dark mode
     },
+    // light: {
+    //   text: "#f1f", // Example: white text color for dark mode
+    // },
   },
 });
 

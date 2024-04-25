@@ -86,7 +86,7 @@ const Navbar = () => {
                 <span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
               </li>
             </NavLink>
-            <NavLink>
+            <NavLink to='/instructors'>
               <li className="group flex  cursor-pointer flex-col">
                 Instructors
                 <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
@@ -158,7 +158,7 @@ const Navbar = () => {
                     Home
                   </li>
                 </NavLink>
-                <NavLink to="">
+                <NavLink to='/instructors'>
                   <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600 ">
                     Instructors
                   </li>

@@ -1,6 +1,14 @@
 import React from "react";
 
-const PrimaryBtn = ({ label, onClick, disabled, border, bg, icon: Icon }) => {
+const PrimaryBtn = ({
+  label,
+  onClick,
+  disabled,
+  border,
+  bg,
+  icon: Icon,
+  width,
+}) => {
   return (
     <button
       onClick={onClick}
@@ -8,7 +16,7 @@ const PrimaryBtn = ({ label, onClick, disabled, border, bg, icon: Icon }) => {
       className={`
             group
             relative
-            w-[150px]
+            ${width}
             rounded
             bg-amber-600
             text-white

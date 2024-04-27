@@ -26,6 +26,7 @@ const Header = () => {
               label="Contact Us"
               border="border"
               icon={FaChevronRight}
+              width="w-[150px]"
             />
           </div>
         </div>

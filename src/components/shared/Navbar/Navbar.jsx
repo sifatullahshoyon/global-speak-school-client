@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Container from "../Container";
 import { useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import DarkModeToggle from "../../Theme/DarkModeToggle";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { Bounce, toast } from "react-toastify";
@@ -13,6 +13,9 @@ const Navbar = () => {
   const dropDownMenuRef = useRef();
   const scrolled = useScrollPosition();
   const { logOut, user } = useContext(AuthContext);
+
+  const location = useLocation();
+  const isLogin = location?.pathname?.includes("instructors");
 
   const handleSignOut = () => {
     logOut()
@@ -57,7 +60,11 @@ const Navbar = () => {
       }`}
     >
       <Container>
-        <nav className="flex items-center justify-between bg-transparent px-4 py-2 text-white pb-8">
+        <nav
+          className={`flex items-center justify-between  px-4 py-2 text-white pb-8 ${
+            isLogin ? "bg-gray-800" : "bg-transparent"
+          }`}
+        >
           <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all duration-200 hover:scale-110">
             <Link to="/">
               <h2 className="text-amber-500">Global Speak School</h2>

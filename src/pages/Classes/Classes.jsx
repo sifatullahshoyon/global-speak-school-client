@@ -2,9 +2,9 @@ import React from "react";
 import Title from "../../components/Title";
 import useScrollPosition from "../../hooks/useScrollPosition";
 import Container from "../../components/shared/Container";
-import PopularInstructorsSection from "../Home/Home/PopularInstructorsSection";
+import PopularClassesSection from "../Home/Home/PopularClassesSection";
 
-const Instructors = () => {
+const Classes = () => {
   const scrolled = useScrollPosition();
   return (
     <div
@@ -13,14 +13,14 @@ const Instructors = () => {
       }`}
     >
       {/* Dynamic Title */}
-      <Title title="Instructors" />
+      <Title title="Classes" />
       <Container>
         <div className="pt-20">
-          <PopularInstructorsSection />
+          <PopularClassesSection />
         </div>
       </Container>
     </div>
   );
 };
 
-export default Instructors;
+export default Classes;

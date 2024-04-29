@@ -15,7 +15,7 @@ const Navbar = () => {
   const { logOut, user } = useContext(AuthContext);
 
   const location = useLocation();
-  const isLogin = location?.pathname?.includes("instructors");
+  const isLogin = location?.pathname?.includes("instructors") || location?.pathname?.includes("classes");
 
   const handleSignOut = () => {
     logOut()
@@ -83,7 +83,7 @@ const Navbar = () => {
                 <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
               </li>
             </NavLink>
-            <NavLink>
+            <NavLink to='/classes'>
               <li className="group flex  cursor-pointer flex-col">
                 Classes
                 <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
@@ -110,12 +110,12 @@ const Navbar = () => {
                 <Avatar />
               </NavLink>
             )}
-            <NavLink>
+            <>
               <DarkModeToggle
                 size="sm"
                 className="group flex  cursor-pointer flex-col"
               />
-            </NavLink>
+            </>
           </ul>
           <div
             ref={dropDownMenuRef}
@@ -151,7 +151,7 @@ const Navbar = () => {
                     Instructors
                   </li>
                 </NavLink>
-                <NavLink>
+                <NavLink to='/classes'>
                   <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600 ">
                     Classes
                   </li>
@@ -176,12 +176,12 @@ const Navbar = () => {
                     <Avatar />
                   </NavLink>
                 )}
-                <NavLink>
+                <>
                   <DarkModeToggle
                     size="sm"
                     className="group flex  cursor-pointer flex-col"
                   />
-                </NavLink>
+                </>
               </ul>
             )}
           </div>

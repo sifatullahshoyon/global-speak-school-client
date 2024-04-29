@@ -27,7 +27,7 @@ const PrimaryBtn = ({
             hover:bg-amber-500
             hover:border-2 border-amber-500
             transition duration-150 delay-150
-            ${border ? "border-2 border-white" : "border-2 border-amber-500"}
+            ${border ? "border-2 border-white" : "border-0 "}
             ${bg ? "bg-white" : ""}
             `}
     >

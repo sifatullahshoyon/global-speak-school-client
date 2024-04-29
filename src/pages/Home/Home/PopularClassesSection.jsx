@@ -4,8 +4,11 @@ import Container from "../../../components/shared/Container";
 import ClassCard from "../../../components/shared/Card/ClassCard";
 import { useColorModeValue } from "@chakra-ui/react";
 import Loader from "../../../components/shared/Loader";
+import { useLocation } from "react-router-dom";
 
 const PopularClassesSection = () => {
+  const location = useLocation();
+  const isOnClassesPage = location?.pathname?.includes("classes");
   const [loading, setLoading] = useState(false);
   const [classes, setClasses] = useState([]);
   const textColor = useColorModeValue("text-gray-600", "gray.text");
@@ -32,11 +35,19 @@ const PopularClassesSection = () => {
   return (
     <section className="py-20">
       <Container>
-        <h2
-          className={`text-xl md:text-3xl lg:text-4xl font-bold text-center pb-8 tracking-wide ${textColor}`}
-        >
-          Popular Classes
-        </h2>
+        {isOnClassesPage ? (
+          <h2
+            className={`text-xl md:text-3xl lg:text-4xl font-bold text-center pb-8 tracking-wide ${textColor}`}
+          >
+            Our Classes
+          </h2>
+        ) : (
+          <h2
+            className={`text-xl md:text-3xl lg:text-4xl font-bold text-center pb-8 tracking-wide ${textColor}`}
+          >
+            Popular Classes
+          </h2>
+        )}
         <p
           className={`lg:px-20 md:px-10 leading-normal text-center text-lg tracking-wide font-semibold pb-10 ${textColorTwo}`}
         >

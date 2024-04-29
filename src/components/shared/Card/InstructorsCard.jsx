@@ -10,7 +10,6 @@ const InstructorsCard = ({ instructors }) => {
   const location = useLocation();
   const isOnInstructorsPage = location?.pathname?.includes("instructors");
   const { instructor, courseTitle } = instructors;
-
   return (
     <>
       {isOnInstructorsPage ? (
@@ -53,11 +52,7 @@ const InstructorsCard = ({ instructors }) => {
               )}
             </Stack>
             {isOnInstructorsPage && (
-              <PrimaryBtn
-                label="See Classes"
-                width="w-[120px]"
-                border="border-0"
-              />
+              <PrimaryBtn label="See Classes" width="w-[120px]" />
             )}
           </Card>
         </div>

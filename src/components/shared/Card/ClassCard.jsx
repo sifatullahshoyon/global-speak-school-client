@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -17,10 +17,12 @@ import {
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../providers/AuthProviders";
 
 const ClassCard = ({ classItem }) => {
   const location = useLocation();
   const isOnClassesPage = location?.pathname?.includes("classes");
+  const {user} = useContext(AuthContext);
   const {
     title,
     classImage,
@@ -34,11 +36,12 @@ const ClassCard = ({ classItem }) => {
     isAdmin,
     schedule,
   } = classItem;
-  const bgColor = availableSeats === 0 ? "red.200" : "white";
-  const btnDisabled = availableSeats === 0 || !isLoggedIn || isAdmin;
+  const bgColor = availableSeats === 0 ? "red.300" : "white";
+  const btnDisabled = availableSeats === 0 || user || isAdmin;
   const initialText = description;
   const [showFullText, setShowFullText] = useState(false);
   const [displayText, setDisplayText] = useState(initialText);
+  const [disabled, setDisabled] = useState(false);
   const handleClick = () => {
     setShowFullText(!showFullText);
     setDisplayText(showFullText ? initialText : initialText.slice(0, 100));
@@ -53,6 +56,9 @@ const ClassCard = ({ classItem }) => {
       // Handle class selection
     }
   };
+ 
+
+  
   return (
     <>
       {isOnClassesPage ? (
@@ -63,8 +69,9 @@ const ClassCard = ({ classItem }) => {
           overflow="hidden"
           bg={bgColor}
           boxShadow="md"
-          p="4"
+          // p="4"
           marginX="auto"
+          className="relative p-4"
         >
           <Box position="relative">
             <Image
@@ -93,7 +100,7 @@ const ClassCard = ({ classItem }) => {
               }}
             />
           </Box>
-          <Box paddingTop="14">
+          <Box paddingTop="14" >
             <Box d="flex" alignItems="baseline">
               <Heading fontSize="lg" fontWeight="semibold">
                 <span className="font-bold">Course Title:</span>{" "}
@@ -116,31 +123,34 @@ const ClassCard = ({ classItem }) => {
                 {availableSeats ? availableSeats : "0"}
               </Text>
             </Flex>
-            <Box mb="2">
-              <Flex>
-                <Text className="font-bold">Schedules: </Text>
-
+            <Box mb="10">
+                <Text className="font-bold underline">Schedules: </Text>
+                <UnorderedList>
                 {schedule?.map((schedule, index) => (
-                  <Text key={index} ml="2">
-                    {" "}
+                  <ListItem key={index} ml="2">
                     {schedule ? schedule : "Data Not Found"}
-                  </Text>
+                  </ListItem>
                 ))}
-              </Flex>
+                </UnorderedList>
             </Box>
+            <Box className="absolute bottom-0 mb-2">
             <Button
               mt="4"
               colorScheme="blue"
               disabled={btnDisabled}
               onClick={handleSelect}
-              _disabled={{ cursor: "not-allowed" }}
+              _disabled={disabled}
+              
+              className="disabled"
             >
               {isLoggedIn
                 ? btnDisabled
                   ? "Unavailable"
                   : "Select"
-                : "Log in to select"}
+                : "Log in to select"} 
+                
             </Button>
+            </Box>
           </Box>
         </Box>
       ) : (

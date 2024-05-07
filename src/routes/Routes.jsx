@@ -7,6 +7,10 @@ import AccountCreate from "../layout/AccountCreate";
 import Registration from "../pages/Registration/Registration";
 import Instructors from "../pages/Instructors/Instructors";
 import Classes from "../pages/Classes/Classes";
+import Dashboard from "../layout/Dashboard";
+import SelectedClasses from "../pages/Dashboard/Students/SelectedClasses";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 
 
 const router = createBrowserRouter([
@@ -28,6 +32,21 @@ const router = createBrowserRouter([
                 element : <Classes />
             },
         ]
+    },
+    {
+        path : 'dashboard',
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
+        errorElement : <ErrorPage />,
+        children : [
+            {
+                path : 'selectedClasses',
+                element : <SelectedClasses />
+            },
+            {
+                path : 'allUsers',
+                element : <AllUsers />
+            },
+        ],
     },
     {
         path : '/',

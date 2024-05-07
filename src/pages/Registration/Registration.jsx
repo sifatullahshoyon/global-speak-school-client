@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Title from "../../components/Title";
 import { AuthContext } from "../../providers/AuthProviders";
 import SendMessage from "../../components/shared/SendMessage/SendMessage";
@@ -14,6 +14,9 @@ const Registration = () => {
     useContext(AuthContext);
   const imgHostingUrl = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostingToken}`;
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.form?.pathName || "/";
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -21,7 +24,7 @@ const Registration = () => {
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    event.target.reset();
+    // event.target.reset();
     const form = event.target;
     const name = form.userName.value;
     const email = form.userEmail.value;
@@ -85,10 +88,27 @@ const Registration = () => {
               console.log(loggedUser);
               updatedUserProfile(name, url)
                 .then(() => {
-                  setMessage({ text: "Sign up successful!", type: "success" });
-                  // navigate("/");
+                  const saveUser = {name , email};
+                  fetch(`${import.meta.env.VITE_API_URL}/users` , {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body : JSON.stringify(saveUser)
+                  })
+                  .then(res => res.json())
+                  .then(data => {
+                    if(data.insertedId){
+                      // reset();
+                      setMessage({ text: "Sign up successful!", type: "success" });
+                      // navigate("/");
+                    }
+                  })
+
+                  
                 })
                 .catch((error) => {
+                  console.error(error.message)
                   setMessage({ text: error.message, type: "error" });
                 });
             })
@@ -122,9 +142,23 @@ const Registration = () => {
   const handleGoogleSignIn = () => {
     singInWithGoogle()
       .then((result) => {
-        const loggedUser = result?.user;
-        setMessage({ text: "Sign up successful!", type: "success" });
-        navigate("/");
+        const loggedInUser = result?.user;
+        const saveUser = {name : loggedInUser.displayName , email : loggedInUser.email};
+        fetch(`${import.meta.env.VITE_API_URL}/users` , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body : JSON.stringify(saveUser)
+        })
+        .then(res => res.json())
+        .then(() => {
+          // reset();
+          setMessage({ text: "Sign up successful!", type: "success" });
+          navigate(from, { replace: true });
+        })
+      
+        
       })
       .catch((error) => {
         setMessage({ text: error.message, type: "error" });

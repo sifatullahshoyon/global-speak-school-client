@@ -34,11 +34,25 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     singInWithGoogle()
     .then((result) => {
-      const loggedUser = result?.user;
-      setMessage({ text: "Sign up successful!", type: "success" });
-      navigate(from, { replace: true });
+      const loggedInUser = result?.user;
+      const saveUser = {name : loggedInUser.displayName , email : loggedInUser.email};
+      fetch(`${import.meta.env.VITE_API_URL}/users` , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(saveUser)
+      })
+      .then(res => res.json())
+      .then(() => {
+        // reset();
+        setMessage({ text: "SignIn successful!", type: "success" });
+        navigate(from, { replace: true });
+      })
+     
     })
     .catch((error) => {
+      console.error(error.message)
       setMessage({ text: error.message, type: "error" });
     });
   };

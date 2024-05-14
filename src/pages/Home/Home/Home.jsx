@@ -5,6 +5,7 @@ import Title from "../../../components/Title";
 import PopularClassesSection from "./PopularClassesSection";
 import PopularInstructorsSection from "./PopularInstructorsSection";
 import FaqSection from "./FaqSection";
+import Subcribe from "./Subcribe";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <PopularClassesSection />
       <PopularInstructorsSection />
       <FaqSection />
+      <Subcribe />
     </>
   );
 };

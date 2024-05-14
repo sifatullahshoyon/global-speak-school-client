@@ -3,9 +3,11 @@ import Title from "../../../components/Title";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import { toast } from "react-toastify";
 import useCart from "../../../hooks/useCart";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const { users, refetch } = useCart();
+  const token = localStorage.getItem("access-token");
 
   const handleMakeAdmin = (user) => {
     fetch(`${import.meta.env.VITE_API_URL}/users/admin/${user._id}`, {
@@ -21,16 +23,47 @@ const AllUsers = () => {
   };
 
   const handleDelete = (user) => {
-    fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          refetch();
-          toast.success(`${user.name} has been deleted!`);
-        }
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
+
+    //
+    // fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
+    //   method: "DELETE",
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.deletedCount > 0) {
+    //       refetch();
+    //       toast.success(`${user.name} has been deleted!`);
+    //     }
+    //   });
   };
 
   return (

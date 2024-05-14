@@ -57,7 +57,7 @@ const Registration = () => {
         type: "error",
       });
       return;
-    }else if (!/(?=.*?[A-Z])/.test(password)) {
+    } else if (!/(?=.*?[A-Z])/.test(password)) {
       setMessage({
         text: "'Please Enter Min 1 uppercase letter'",
         type: "error",
@@ -88,27 +88,28 @@ const Registration = () => {
               console.log(loggedUser);
               updatedUserProfile(name, url)
                 .then(() => {
-                  const saveUser = {name , email};
-                  fetch(`${import.meta.env.VITE_API_URL}/users` , {
-                    method: 'POST',
+                  const saveUser = { name, email };
+                  fetch(`${import.meta.env.VITE_API_URL}/users`, {
+                    method: "POST",
                     headers: {
-                      'Content-Type': 'application/json'
+                      "Content-Type": "application/json",
                     },
-                    body : JSON.stringify(saveUser)
+                    body: JSON.stringify(saveUser),
                   })
-                  .then(res => res.json())
-                  .then(data => {
-                    if(data.insertedId){
-                      // reset();
-                      setMessage({ text: "Sign up successful!", type: "success" });
-                      // navigate("/");
-                    }
-                  })
-
-                  
+                    .then((res) => res.json())
+                    .then((data) => {
+                      if (data.insertedId) {
+                        // reset();
+                        setMessage({
+                          text: "Sign up successful!",
+                          type: "success",
+                        });
+                        // navigate("/");
+                      }
+                    });
                 })
                 .catch((error) => {
-                  console.error(error.message)
+                  console.error(error.message);
                   setMessage({ text: error.message, type: "error" });
                 });
             })
@@ -143,22 +144,23 @@ const Registration = () => {
     singInWithGoogle()
       .then((result) => {
         const loggedInUser = result?.user;
-        const saveUser = {name : loggedInUser.displayName , email : loggedInUser.email};
-        fetch(`${import.meta.env.VITE_API_URL}/users` , {
-          method: 'POST',
+        const saveUser = {
+          name: loggedInUser.displayName,
+          email: loggedInUser.email,
+        };
+        fetch(`${import.meta.env.VITE_API_URL}/users`, {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body : JSON.stringify(saveUser)
+          body: JSON.stringify(saveUser),
         })
-        .then(res => res.json())
-        .then(() => {
-          // reset();
-          setMessage({ text: "Sign up successful!", type: "success" });
-          navigate(from, { replace: true });
-        })
-      
-        
+          .then((res) => res.json())
+          .then(() => {
+            // reset();
+            setMessage({ text: "Sign up successful!", type: "success" });
+            navigate(from, { replace: true });
+          });
       })
       .catch((error) => {
         setMessage({ text: error.message, type: "error" });

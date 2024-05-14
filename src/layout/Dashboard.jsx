@@ -1,12 +1,14 @@
-import { Divider } from '@chakra-ui/react';
 import React, { useContext } from 'react';
+import { Divider } from '@chakra-ui/react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProviders';
+import useAdmin from '../hooks/useAdmin';
 
 const Dashboard = () => {
   const { user} = useContext(AuthContext);
   // TODO : load data from the server to have dynamic isAdmin based on Data
-  const isAdmin = true;
+  // const isAdmin = true;
+  const [isAdmin] = useAdmin();
   return (
     <div className="drawer lg:drawer-open">
   <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -24,7 +26,7 @@ const Dashboard = () => {
             </Link>
             <br /><br /><br />
       {isAdmin ? <>
-        <li><Link to='' className='text-center font-bold'>User Home</Link></li>
+        <li><Link to='/' className='text-center font-bold'>User Home</Link></li>
       <li><Link to='' className='text-center font-bold'>Selected Classes</Link></li>
       <li><Link to='' className='text-center font-bold'>Enrolled Classes</Link></li>
       <li><Link to='' className='text-center font-bold'>Payment History</Link></li>

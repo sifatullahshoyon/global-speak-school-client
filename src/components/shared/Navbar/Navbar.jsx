@@ -15,7 +15,9 @@ const Navbar = () => {
   const { logOut, user } = useContext(AuthContext);
 
   const location = useLocation();
-  const isLogin = location?.pathname?.includes("instructors") || location?.pathname?.includes("classes");
+  const isLogin =
+    location?.pathname?.includes("instructors") ||
+    location?.pathname?.includes("classes");
 
   const handleSignOut = () => {
     logOut()
@@ -83,25 +85,27 @@ const Navbar = () => {
                 <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
               </li>
             </NavLink>
-            <NavLink to='/classes'>
+            <NavLink to="/classes">
               <li className="group flex  cursor-pointer flex-col">
                 Classes
                 <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
               </li>
             </NavLink>
-            <NavLink to='/contact'>
-            <li className="group flex  cursor-pointer flex-col">
-              Contact
-              <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
-            </li>
+            <NavLink to="/contact">
+              <li className="group flex  cursor-pointer flex-col">
+                Contact
+                <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+              </li>
             </NavLink>
-            {user && <NavLink to='/dashboard/selectedClasses'>
-            <li className="group flex  cursor-pointer flex-col">
-              Dashboard
-              <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
-            </li>
-            </NavLink>}
-           
+            {user && (
+              <NavLink to="/dashboard/selectedClasses">
+                <li className="group flex  cursor-pointer flex-col">
+                  Dashboard
+                  <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                </li>
+              </NavLink>
+            )}
+
             <li className="group flex  cursor-pointer flex-col">
               {user?.email ? (
                 <>
@@ -160,23 +164,25 @@ const Navbar = () => {
                     Instructors
                   </li>
                 </NavLink>
-                <NavLink to='/classes'>
+                <NavLink to="/classes">
                   <li className="cursor-pointer  px-6 py-2 text-white hover:bg-amber-600 ">
                     Classes
                   </li>
                 </NavLink>
-                <NavLink to='/contact'>
-            <li className="group flex  cursor-pointer flex-col">
-              Contact
-              <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
-            </li>
-            </NavLink>
-            {user && <NavLink to='/dashboard/selectedClasses'>
-            <li className="group flex  cursor-pointer flex-col">
-              Dashboard
-              <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
-            </li>
-            </NavLink>}
+                <NavLink to="/contact">
+                  <li className="group flex  cursor-pointer flex-col">
+                    Contact
+                    <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                  </li>
+                </NavLink>
+                {user && (
+                  <NavLink to="/dashboard/selectedClasses">
+                    <li className="group flex  cursor-pointer flex-col">
+                      Dashboard
+                      <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                    </li>
+                  </NavLink>
+                )}
                 <li className="group flex  cursor-pointer flex-col">
                   {user?.email ? (
                     <>

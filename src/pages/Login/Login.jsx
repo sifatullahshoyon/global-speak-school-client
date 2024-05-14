@@ -7,7 +7,7 @@ import SendMessage from "../../components/shared/SendMessage/SendMessage";
 
 const Login = () => {
   const [message, setMessage] = useState({ text: "", type: null });
-  const { signIn , singInWithGoogle} = useContext(AuthContext);
+  const { signIn, singInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -15,11 +15,11 @@ const Login = () => {
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    event.target.reset();
+    // event.target.reset();
     const form = event.target;
     const email = form.userEmail.value;
     const password = form.password.value;
-    // console.log(email , password);
+    console.log(email, password);
     signIn(email, password)
       .then((result) => {
         const loggedUser = result?.user;
@@ -33,28 +33,33 @@ const Login = () => {
 
   const handleGoogleSignIn = () => {
     singInWithGoogle()
-    .then((result) => {
-      const loggedInUser = result?.user;
-      const saveUser = {name : loggedInUser.displayName , email : loggedInUser.email};
-      fetch(`${import.meta.env.VITE_API_URL}/users` , {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body : JSON.stringify(saveUser)
+      .then((result) => {
+        const loggedInUser = result?.user;
+        const saveUser = {
+          name: loggedInUser.displayName,
+          email: loggedInUser.email,
+        };
+        fetch(
+          `${import.meta.env.VITE_API_URL}/users?email=${loggedInUser?.email}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(saveUser),
+          }
+        )
+          .then((res) => res.json())
+          .then(() => {
+            // reset();
+            setMessage({ text: "SignIn successful!", type: "success" });
+            navigate(from, { replace: true });
+          });
       })
-      .then(res => res.json())
-      .then(() => {
-        // reset();
-        setMessage({ text: "SignIn successful!", type: "success" });
-        navigate(from, { replace: true });
-      })
-     
-    })
-    .catch((error) => {
-      console.error(error.message)
-      setMessage({ text: error.message, type: "error" });
-    });
+      .catch((error) => {
+        console.error(error.message);
+        setMessage({ text: error.message, type: "error" });
+      });
   };
   return (
     <>

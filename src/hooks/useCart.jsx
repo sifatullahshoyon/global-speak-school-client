@@ -1,45 +1,47 @@
-// import React, { useContext } from 'react';
-// import { useQuery } from '@tanstack/react-query'
-// import { AuthContext } from '../providers/AuthProviders';
-
-
-// const useCart = () => {
-//     const {user} = useContext(AuthContext);
-//     const { refetch, data : cart = [] } = useQuery({
-//         queryKey: ['users' , user?.email],
-//         queryFn: async() => {
-//             const response = await fetch(`${import.meta.env.VITE_API_URL}/users?email=${user?.email}`);
-//             return response.json();
-//         },
-//       });
-//       return [cart , refetch]
-// };
-
-// export default useCart;
-
-
-
-import React, { useContext } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { AuthContext } from '../providers/AuthProviders';
+import React, { useContext } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { AuthContext } from "../providers/AuthProviders";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const useCart = () => {
-    const { user } = useContext(AuthContext);
-    const token = localStorage.getItem('access-token');
+  const { user, logOut } = useContext(AuthContext);
+  const token = localStorage.getItem("access-token");
+  const navigate = useNavigate();
 
-    const { refetch, data: users = [] } = useQuery({
-        queryKey: {'users': user?.email,},
-        queryFn: async (email) => {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/users?email=${user?.email}` , {
-                headers : {
-                    authorization : `bearer ${token}`
-                }
-            });
-            return response.json();
-        },
-    });
+  const fetchWithAuth = async (url, options = {}) => {
+    const headers = {
+      ...options.headers,
+      authorization: `Bearer ${token}`,
+    };
 
-    return [users, refetch];
+    try {
+      const response = await fetch(url, { ...options, headers });
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          toast.error("unauthorized access");
+          await logOut();
+          navigate("/login");
+        }
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+      return response.json();
+    } catch (error) {
+      console.error("Fetch error:", error);
+      throw error;
+    }
+  };
+
+  const { refetch, data: users = [] } = useQuery({
+    queryKey: ["users", user?.email],
+    queryFn: async () => {
+      return fetchWithAuth(
+        `${import.meta.env.VITE_API_URL}/users?email=${user?.email}`
+      );
+    },
+  });
+
+  return { users, refetch };
 };
 
 export default useCart;

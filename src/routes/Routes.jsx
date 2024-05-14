@@ -11,58 +11,66 @@ import Dashboard from "../layout/Dashboard";
 import SelectedClasses from "../pages/Dashboard/Students/SelectedClasses";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
-
+import AdminRoute from "./PrivateRoute/AdminRoute";
 
 const router = createBrowserRouter([
-    {
-        path : '/',
-        element : <MainLayout />,
-        errorElement : <ErrorPage />,
-        children : [
-            {
-                path : '/',
-                element : <Home />
-            },
-            {
-                path : 'instructors',
-                element : <Instructors />
-            },
-            {
-                path : 'classes',
-                element : <Classes />
-            },
-        ]
-    },
-    {
-        path : 'dashboard',
-        element: <PrivateRoute><Dashboard /></PrivateRoute>,
-        errorElement : <ErrorPage />,
-        children : [
-            {
-                path : 'selectedClasses',
-                element : <SelectedClasses />
-            },
-            {
-                path : 'allUsers',
-                element : <AllUsers />
-            },
-        ],
-    },
-    {
-        path : '/',
-        element: <AccountCreate />,
-        errorElement : <ErrorPage />,
-        children : [
-            {
-                path : '/login',
-                element : <Login />
-            },
-            {
-                path : '/registration',
-                element : <Registration />
-            },
-        ]
-    }
+  {
+    path: "/",
+    element: <MainLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "instructors",
+        element: <Instructors />,
+      },
+      {
+        path: "classes",
+        element: <Classes />,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "selectedClasses",
+        element: <SelectedClasses />,
+      },
+      {
+        path: "allUsers",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <AccountCreate />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/registration",
+        element: <Registration />,
+      },
+    ],
+  },
 ]);
 
 export default router;

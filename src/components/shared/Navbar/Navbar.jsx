@@ -17,7 +17,8 @@ const Navbar = () => {
   const location = useLocation();
   const isLogin =
     location?.pathname?.includes("instructors") ||
-    location?.pathname?.includes("classes");
+    location?.pathname?.includes("classes") ||
+    location?.pathname?.includes("contact");
 
   const handleSignOut = () => {
     logOut()

@@ -12,6 +12,7 @@ import SelectedClasses from "../pages/Dashboard/Students/SelectedClasses";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AdminRoute from "./PrivateRoute/AdminRoute";
+import Contact from "../pages/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "classes",
         element: <Classes />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
       },
     ],
   },

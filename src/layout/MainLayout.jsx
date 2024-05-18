@@ -6,7 +6,7 @@ import Footer from "../components/shared/Footer/Footer";
 
 const MainLayout = () => {
   const location = useLocation();
-  const isLogin = location?.pathname?.includes("instructors") || location?.pathname?.includes("classes");
+  const isLogin = location?.pathname?.includes("instructors") || location?.pathname?.includes("classes") || location?.pathname?.includes("contact");
   return (
     <div>
       {isLogin || <TopBar />}

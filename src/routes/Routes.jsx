@@ -13,6 +13,9 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AdminRoute from "./PrivateRoute/AdminRoute";
 import Contact from "../pages/Contact/Contact";
+import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import UserHome from "../pages/Dashboard/Students/UserHome";
+import Payment from "../pages/Dashboard/Students/Payment";
 
 const router = createBrowserRouter([
   {
@@ -52,10 +55,27 @@ const router = createBrowserRouter([
         element: <SelectedClasses />,
       },
       {
+        path: "userHome",
+        element: <UserHome />,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
+      },
+      // admin route
+      {
         path: "allUsers",
         element: (
           <AdminRoute>
             <AllUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "adminHome",
+        element: (
+          <AdminRoute>
+            <AdminHome />
           </AdminRoute>
         ),
       },

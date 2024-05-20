@@ -15,7 +15,7 @@ import {
   UnorderedList,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../providers/AuthProviders";
 
@@ -147,9 +147,17 @@ const ClassCard = ({ classItem }) => {
                 ? btnDisabled
                   ? "Unavailable"
                   : "Select"
-                : "Log in to select"} 
+                : "Select"} 
                 
             </Button>
+            <Link to='/dashboard/payment'><Button
+              mt="4"
+              ml='4'
+              colorScheme="orange"
+            >
+             Enrolled
+                
+            </Button></Link>
             </Box>
           </Box>
         </Box>

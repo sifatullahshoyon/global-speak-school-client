@@ -15,7 +15,7 @@ import AdminRoute from "./PrivateRoute/AdminRoute";
 import Contact from "../pages/Contact/Contact";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 import UserHome from "../pages/Dashboard/Students/UserHome";
-import Payment from "../pages/Dashboard/Students/Payment";
+import Payment from "../pages/Dashboard/Students/Payment/Payment";
 
 const router = createBrowserRouter([
   {

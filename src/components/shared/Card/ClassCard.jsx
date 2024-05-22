@@ -18,12 +18,14 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../providers/AuthProviders";
+import SelectedClasses from "../../../pages/Dashboard/Students/SelectedClasses";
 
 const ClassCard = ({ classItem }) => {
   const location = useLocation();
   const isOnClassesPage = location?.pathname?.includes("classes");
   const {user} = useContext(AuthContext);
   const {
+    _id,
     title,
     classImage,
     students,
@@ -46,7 +48,8 @@ const ClassCard = ({ classItem }) => {
     setShowFullText(!showFullText);
     setDisplayText(showFullText ? initialText : initialText.slice(0, 100));
   };
-  const handleSelect = () => {
+  const handleSelect = (item) => {
+    console.log(item)
     if (!isLoggedIn) {
       toast("Please log in before selecting the course.");
       // Redirect to login page or show login modal
@@ -134,13 +137,14 @@ const ClassCard = ({ classItem }) => {
                 </UnorderedList>
             </Box>
             <Box className="absolute bottom-0 mb-2">
+            <Link to={`/classes/${_id}`}>
+              <SelectedClasses className='hidden'/>
             <Button
               mt="4"
               colorScheme="blue"
               disabled={btnDisabled}
-              onClick={handleSelect}
+              onClick={() => handleSelect(classItem)}
               _disabled={disabled}
-              
               className="disabled"
             >
               {isLoggedIn
@@ -150,6 +154,7 @@ const ClassCard = ({ classItem }) => {
                 : "Select"} 
                 
             </Button>
+            </Link>
             <Link to='/dashboard/payment'><Button
               mt="4"
               ml='4'

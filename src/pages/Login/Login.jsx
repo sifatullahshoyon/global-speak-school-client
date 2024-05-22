@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import "./Login.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { IoEyeSharp } from "react-icons/io5";
 import Title from "../../components/Title";
 import { AuthContext } from "../../providers/AuthProviders";
 import SendMessage from "../../components/shared/SendMessage/SendMessage";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState({ text: "", type: null });
   const { signIn, singInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -15,11 +18,11 @@ const Login = () => {
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    // event.target.reset();
+    event.target.reset();
     const form = event.target;
     const email = form.userEmail.value;
     const password = form.password.value;
-    console.log(email, password);
+
     signIn(email, password)
       .then((result) => {
         const loggedUser = result?.user;
@@ -51,7 +54,7 @@ const Login = () => {
         )
           .then((res) => res.json())
           .then(() => {
-            // reset();
+            reset();
             setMessage({ text: "SignIn successful!", type: "success" });
             navigate(from, { replace: true });
           });
@@ -89,14 +92,27 @@ const Login = () => {
                 <label htmlFor="password" className="block ">
                   Password
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password"
-                  className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
+                    required
+                  />
+                  <div
+                    className="absolute top-4 right-0"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <IoEyeSharp className="icon" />
+                    ) : (
+                      <FaRegEyeSlash className="icon" />
+                    )}
+                  </div>
+                </div>
+
                 <div className="flex justify-end text-xs ">
                   <a href="#" className="hover:underline">
                     Forgot Password?

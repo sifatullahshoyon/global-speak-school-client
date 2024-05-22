@@ -16,6 +16,10 @@ import Contact from "../pages/Contact/Contact";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
 import UserHome from "../pages/Dashboard/Students/UserHome";
 import Payment from "../pages/Dashboard/Students/Payment/Payment";
+import InstructorsDashboard from "../layout/InstructorsDashboard";
+import InstructorHome from "../pages/Dashboard/Instructors/InstructorHome/InstructorHome";
+import AddAClass from "../pages/Dashboard/Instructors/AddAClass/AddAClass";
+import MyClasss from "../pages/Dashboard/Instructors/MyClasss/MyClasss";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +65,47 @@ const router = createBrowserRouter([
       {
         path: "payment",
         element: <Payment />,
+      },
+      // admin route
+      {
+        path: "allUsers",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "adminHome",
+        element: (
+          <AdminRoute>
+            <AdminHome />
+          </AdminRoute>
+        ),
+      },
+    ],
+  },
+  // Instructor Route:-
+  {
+    path: "instructors-dashboard",
+    element: (
+      <PrivateRoute>
+        <InstructorsDashboard />
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "instructor-home",
+        element: <InstructorHome />,
+      },
+      {
+        path: "add-a-classes",
+        element: <AddAClass />,
+      },
+      {
+        path: "my-classes",
+        element: <MyClasss />,
       },
       // admin route
       {

@@ -3,13 +3,17 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Title from "../../components/Title";
 import { AuthContext } from "../../providers/AuthProviders";
 import SendMessage from "../../components/shared/SendMessage/SendMessage";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { IoEyeSharp } from "react-icons/io5";
 
 const imageHostingToken = import.meta.env.VITE_Image_Upload_Token;
 
 const Registration = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [message, setMessage] = useState({ text: "", type: null });
   const [selectedFile, setSelectedFile] = useState(null);
-  // const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const { createUser, updatedUserProfile, singInWithGoogle } =
     useContext(AuthContext);
   const imgHostingUrl = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostingToken}`;
@@ -24,13 +28,11 @@ const Registration = () => {
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    // event.target.reset();
     const form = event.target;
     const name = form.userName.value;
     const email = form.userEmail.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
-    console.log(name, email, password, confirmPassword);
 
     // Password Validation:-
     if (/^\s*$/.test(password)) {
@@ -79,13 +81,11 @@ const Registration = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-          // setImageUrl(data.data.display_url);
+          setImageUrl(data.data.display_url);
           const url = data.data.display_url;
           createUser(email, password)
             .then((result) => {
               const loggedUser = result?.user;
-              console.log(loggedUser);
               updatedUserProfile(name, url)
                 .then(() => {
                   const saveUser = { name, email };
@@ -99,12 +99,12 @@ const Registration = () => {
                     .then((res) => res.json())
                     .then((data) => {
                       if (data.insertedId) {
-                        // reset();
+                        reset();
                         setMessage({
                           text: "Sign up successful!",
                           type: "success",
                         });
-                        // navigate("/");
+                        navigate("/");
                       }
                     });
                 })
@@ -121,23 +121,6 @@ const Registration = () => {
           console.error("Error uploading image: ", error);
         });
     }
-
-    // createUser(email, password)
-    //   .then((result) => {
-    //     const loggedUser = result?.user;
-    //     console.log(loggedUser)
-    //     updatedUserProfile(name , url)
-    //       .then(() => {
-    //         setMessage({ text: "Sign up successful!", type: "success" });
-    //         navigate("/");
-    //       })
-    //       .catch((error) => {
-    //         setMessage({ text: error.message, type: "error" });
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     setMessage({ text: error.message, type: "error" });
-    //   });
   };
 
   const handleGoogleSignIn = () => {
@@ -157,7 +140,7 @@ const Registration = () => {
         })
           .then((res) => res.json())
           .then(() => {
-            // reset();
+            reset();
             setMessage({ text: "Sign up successful!", type: "success" });
             navigate(from, { replace: true });
           });
@@ -218,27 +201,51 @@ const Registration = () => {
                 <label htmlFor="password" className="block ">
                   Password
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password"
-                  className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
+                    required
+                  />
+                  <div
+                    className="absolute top-4 right-0"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <IoEyeSharp className="icon" />
+                    ) : (
+                      <FaRegEyeSlash className="icon" />
+                    )}
+                  </div>
+                </div>
               </div>
               <div className="space-y-2 text-sm">
                 <label htmlFor="confirmPassword" className="block ">
                   Confirm Password
                 </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  id="confirmPassword"
-                  placeholder="Confirm Password"
-                  className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    placeholder="Confirm Password"
+                    className="w-full px-4 py-3 rounded-md focus:outline-none focus:ring focus:border-b-0 border-b-2 border-amber-500"
+                    required
+                  />
+                  <div
+                    className="absolute top-4 right-0"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? (
+                      <IoEyeSharp className="icon" />
+                    ) : (
+                      <FaRegEyeSlash className="icon" />
+                    )}
+                  </div>
+                </div>
               </div>
               {/* Sign in Button */}
               <button className="text-lg rounded-xl relative p-[10px] block w-full bg-indigo-600 text-white border-y-4 duration-500 overflow-hidden focus:border-indigo-500 z-50 group">

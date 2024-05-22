@@ -2,21 +2,21 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import Loader from "../../components/shared/Loader";
 import { Navigate, useLocation } from "react-router-dom";
-import useAdmin from "../../hooks/useAdmin";
+import useInstructor from "../../hooks/useInstructor";
 
-const AdminRoute = ({ children }) => {
+const IsInstructorRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
-  const [isAdmin, isAdminLoading] = useAdmin();
+  const [isInstructor, isInstructorLoading] = useInstructor();
   const location = useLocation();
-  if (loading || isAdminLoading) {
+  if (loading || isInstructorLoading) {
     return <Loader />;
-  };
-  if (user && isAdmin) {
+  }
+  if (user && isInstructor) {
     return children;
-  };
+  }
   return (
     <Navigate to="/login" state={{ from: location }} replace={true}></Navigate>
   );
 };
 
-export default AdminRoute;
+export default IsInstructorRoute;

@@ -2,16 +2,15 @@ import React, { useContext } from "react";
 import { Divider } from "@chakra-ui/react";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProviders";
-import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
 
-const Dashboard = () => {
-  const { user } = useContext(AuthContext);
+const InstructorsDashboard = () => {
+    const { user } = useContext(AuthContext);
   // TODO : load data from the server to have dynamic isAdmin based on Data
-  // const isAdmin = false;
-  const [isAdmin] = useAdmin();
-
-  return (
-    <div className="drawer lg:drawer-open">
+//   const isInstructor = false;
+  const [isInstructor] = useInstructor();
+    return (
+        <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col items-center justify-center mt-5">
         <Outlet />
@@ -38,27 +37,26 @@ const Dashboard = () => {
           <br />
           <br />
           <br />
-          {isAdmin ? (
+          {isInstructor ? (
             <>
               <li>
-                <Link to="/dashboard/adminHome" className="text-center font-bold">
-                  Admin Home
+                <Link to="/instructors-dashboard/instructor-home" className="text-center font-bold">
+                  Instructor Home
                 </Link>
               </li>
               <li>
-                <Link to="" className="text-center font-bold">
-                  Manage Classes
+                <Link to="/instructors-dashboard/add-a-classes" className="text-center font-bold">
+                Add a Class
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/dashboard/allUsers"
+                  to="/instructors-dashboard/my-classes"
                   className="text-center font-bold"
                 >
-                  All Users
+                  My Classes
                 </Link>
               </li>
-           
               
             </>
           ) : (
@@ -113,7 +111,7 @@ const Dashboard = () => {
         </ul>
       </div>
     </div>
-  );
+    );
 };
 
-export default Dashboard;
+export default InstructorsDashboard;

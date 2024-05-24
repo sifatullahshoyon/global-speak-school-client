@@ -2,10 +2,8 @@ import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
-  ButtonGroup,
   Card,
   CardBody,
-  CardFooter,
   Heading,
   Image,
   ListItem,
@@ -13,19 +11,15 @@ import {
   Text,
   Flex,
   UnorderedList,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
 import { AuthContext } from "../../../providers/AuthProviders";
-import SelectedClasses from "../../../pages/Dashboard/Students/SelectedClasses";
 
 const ClassCard = ({ classItem }) => {
   const location = useLocation();
   const isOnClassesPage = location?.pathname?.includes("classes");
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const {
-    _id,
     title,
     classImage,
     students,
@@ -48,20 +42,8 @@ const ClassCard = ({ classItem }) => {
     setShowFullText(!showFullText);
     setDisplayText(showFullText ? initialText : initialText.slice(0, 100));
   };
-  const handleSelect = (item) => {
-    console.log(item)
-    if (!isLoggedIn) {
-      toast("Please log in before selecting the course.");
-      // Redirect to login page or show login modal
-    } else if (isAdmin) {
-      alert("Admins/Instructors cannot select a class.");
-    } else {
-      // Handle class selection
-    }
-  };
- 
+  const handleSelect = (item) => {};
 
-  
   return (
     <>
       {isOnClassesPage ? (
@@ -103,7 +85,7 @@ const ClassCard = ({ classItem }) => {
               }}
             />
           </Box>
-          <Box paddingTop="14" >
+          <Box paddingTop="14">
             <Box d="flex" alignItems="baseline">
               <Heading fontSize="lg" fontWeight="semibold">
                 <span className="font-bold">Course Title:</span>{" "}
@@ -127,42 +109,37 @@ const ClassCard = ({ classItem }) => {
               </Text>
             </Flex>
             <Box mb="10">
-                <Text className="font-bold underline">Schedules: </Text>
-                <UnorderedList>
+              <Text className="font-bold underline">Schedules: </Text>
+              <UnorderedList>
                 {schedule?.map((schedule, index) => (
                   <ListItem key={index} ml="2">
                     {schedule ? schedule : "Data Not Found"}
                   </ListItem>
                 ))}
-                </UnorderedList>
+              </UnorderedList>
             </Box>
             <Box className="absolute bottom-0 mb-2">
-            <Link to={`/classes/${_id}`}>
-              <SelectedClasses className='hidden'/>
-            <Button
-              mt="4"
-              colorScheme="blue"
-              disabled={btnDisabled}
-              onClick={() => handleSelect(classItem)}
-              _disabled={disabled}
-              className="disabled"
-            >
-              {isLoggedIn
-                ? btnDisabled
-                  ? "Unavailable"
-                  : "Select"
-                : "Select"} 
-                
-            </Button>
-            </Link>
-            <Link to='/dashboard/payment'><Button
-              mt="4"
-              ml='4'
-              colorScheme="orange"
-            >
-             Enrolled
-                
-            </Button></Link>
+              <Link to={`/dashboard/selectedClasses`}>
+                <Button
+                  mt="4"
+                  colorScheme="blue"
+                  disabled={btnDisabled}
+                  onClick={() => handleSelect(classItem)}
+                  _disabled={disabled}
+                  className="disabled"
+                >
+                  {isLoggedIn
+                    ? btnDisabled
+                      ? "Unavailable"
+                      : "Select"
+                    : "Select"}
+                </Button>
+              </Link>
+              <Link to="/dashboard/payment">
+                <Button mt="4" ml="4" colorScheme="orange">
+                  Enrolled
+                </Button>
+              </Link>
             </Box>
           </Box>
         </Box>
@@ -213,16 +190,6 @@ const ClassCard = ({ classItem }) => {
                 </Box>
               </Stack>
             </CardBody>
-            {/* <CardFooter>
-          <ButtonGroup spacing="2">
-            <Button variant="solid" colorScheme="blue">
-              Buy now
-            </Button>
-            <Button variant="ghost" colorScheme="blue">
-              Add to cart
-            </Button>
-          </ButtonGroup>
-        </CardFooter> */}
           </Card>
         </div>
       )}

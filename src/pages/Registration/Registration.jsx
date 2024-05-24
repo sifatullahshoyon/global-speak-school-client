@@ -75,7 +75,7 @@ const Registration = () => {
       fetch(imgHostingUrl, {
         method: "POST",
         // headers: {
-        //   'Authorization': `Bearer ${imageHostingToken}`
+        //   'Authorization': `bearer ${imageHostingToken}`
         // },
         body: formData,
       })

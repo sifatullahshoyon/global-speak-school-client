@@ -14,7 +14,7 @@ const Navbar = () => {
   const dropDownMenuRef = useRef();
   const scrolled = useScrollPosition();
   const { logOut, user } = useContext(AuthContext);
-  const [isAdmin] = useAdmin();
+  const [isAdmin, isAdminLoading] = useAdmin();
   const location = useLocation();
   const isLogin =
     location?.pathname?.includes("instructors") ||
@@ -100,14 +100,15 @@ const Navbar = () => {
               </li>
             </NavLink>
             {user && (
-              <NavLink to={isAdmin ? `/dashboard/adminHome` : `/dashboard/userHome`}>
+              <NavLink
+                to={isAdmin ? `/dashboard/adminHome` : `/dashboard/userHome`}
+              >
                 <li className="group flex  cursor-pointer flex-col">
                   Dashboard
                   <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
                 </li>
               </NavLink>
             )}
-
             <li className="group flex  cursor-pointer flex-col">
               {user?.email ? (
                 <>
@@ -178,7 +179,11 @@ const Navbar = () => {
                   </li>
                 </NavLink>
                 {user && (
-                  <NavLink to={isAdmin ? `/dashboard/adminHome` : `/dashboard/userHome`}>
+                  <NavLink
+                    to={
+                      isAdmin ? `/dashboard/adminHome` : `/dashboard/userHome`
+                    }
+                  >
                     <li className="group flex  cursor-pointer flex-col">
                       Dashboard
                       <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full"></span>

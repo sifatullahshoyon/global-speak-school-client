@@ -18,7 +18,7 @@ const CheckoutForm = ({ price }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
+        authorization: `bearer ${token}`,
       },
       body: JSON.stringify({ price }),
     })
@@ -45,10 +45,9 @@ const CheckoutForm = ({ price }) => {
     });
 
     if (error) {
-      console.log("payment error", error);
+      console.error("payment error", error);
       setCardError(error.message);
     } else {
-      console.log("payment method", paymentMethod);
       setCardError("");
     }
 
@@ -65,11 +64,9 @@ const CheckoutForm = ({ price }) => {
       });
 
     if (confirmError) {
-      console.log("confirm error");
+      console.error("confirm error");
     } else {
-      console.log("paymentIntent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
       }
     }

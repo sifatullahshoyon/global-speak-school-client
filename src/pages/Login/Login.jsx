@@ -18,7 +18,6 @@ const Login = () => {
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    event.target.reset();
     const form = event.target;
     const email = form.userEmail.value;
     const password = form.password.value;
@@ -54,7 +53,6 @@ const Login = () => {
         )
           .then((res) => res.json())
           .then(() => {
-            reset();
             setMessage({ text: "SignIn successful!", type: "success" });
             navigate(from, { replace: true });
           });

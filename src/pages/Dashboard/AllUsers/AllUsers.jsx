@@ -6,7 +6,7 @@ import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
 
 const AllUsers = () => {
-  const { users, refetch } = useCart();
+  const [users, refetch] = useCart();
   const token = localStorage.getItem("access-token");
 
   const handleMakeAdmin = (user) => {

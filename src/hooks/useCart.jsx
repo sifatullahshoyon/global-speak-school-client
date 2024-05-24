@@ -12,7 +12,7 @@ const useCart = () => {
   const fetchWithAuth = async (url, options = {}) => {
     const headers = {
       ...options.headers,
-      authorization: `Bearer ${token}`,
+      authorization: `bearer ${token}`,
     };
 
     try {
@@ -41,7 +41,7 @@ const useCart = () => {
     },
   });
 
-  return { users, refetch };
+  return [users, refetch];
 };
 
 export default useCart;

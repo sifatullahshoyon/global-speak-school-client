@@ -3,12 +3,17 @@ import { Divider } from "@chakra-ui/react";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProviders";
 import useAdmin from "../hooks/useAdmin";
+import Loader from "../components/shared/Loader";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   // TODO : load data from the server to have dynamic isAdmin based on Data
   // const isAdmin = false;
-  const [isAdmin] = useAdmin();
+  const [isAdmin, isAdminLoading] = useAdmin();
+
+  if (isAdminLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="drawer lg:drawer-open">
@@ -41,7 +46,10 @@ const Dashboard = () => {
           {isAdmin ? (
             <>
               <li>
-                <Link to="/dashboard/adminHome" className="text-center font-bold">
+                <Link
+                  to="/dashboard/adminHome"
+                  className="text-center font-bold"
+                >
                   Admin Home
                 </Link>
               </li>
@@ -58,19 +66,23 @@ const Dashboard = () => {
                   All Users
                 </Link>
               </li>
-           
-              
             </>
           ) : (
             <>
               <br />
               <li>
-                <Link to="/dashboard/userHome" className="text-center font-bold">
+                <Link
+                  to="/dashboard/userHome"
+                  className="text-center font-bold"
+                >
                   User Home
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/selectedClasses" className="text-center font-bold">
+                <Link
+                  to="/dashboard/selectedClasses"
+                  className="text-center font-bold"
+                >
                   My Selected Classes
                 </Link>
               </li>
@@ -93,8 +105,8 @@ const Dashboard = () => {
           )}
           {/* Common Links */}
           <br />
-              <Divider bg="black" />
-              <br />
+          <Divider bg="black" />
+          <br />
           <li>
             <Link to="/" className="text-center font-bold">
               Home
